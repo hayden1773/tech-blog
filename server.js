@@ -41,7 +41,7 @@ app.set('view engine', 'handlebars');
 
 
 app.get('/dashboard', (req,res) => {
-  if(req.session.user){
+  if(req.session.User){
     res.render('dashboard', {layout : 'main'});
     return;
   }

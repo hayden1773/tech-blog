@@ -4,25 +4,12 @@ const {User,} = require("../models")
 
 const users = [
     {
-        username:"Jeff",
-        password:"password123",
-        email: "joel@go.com"
-    },
-    {
-        username:"Bakary",
-        password:"password123",
-        email: "bak@go.com"
-    },
-    {
         username:"Hayden",
         password:"password123",
-        email: "lora@go.com"
+        email: "hay@y.com"
     },
-    {
-        username:"Pablito",
-        password:"password123",
-        email: "Mar@go.com"
-    }
+    
+   
 ]
 
 const people = async ()=>{
