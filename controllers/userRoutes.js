@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const {User,comment} = require("../models/");
 const bcrypt  = require("bcrypt");
 
-// find all
+
 router.get("/", (req, res) => {
   User.findAll({
-    
+    include:[comment]
   })
     .then(dbUsers => {
       res.json(dbUsers);
@@ -15,14 +16,13 @@ router.get("/", (req, res) => {
       res.status(500).json({ msg: "an error occured", err });
     });
 });
-
-// logout
 router.get("/logout",(req,res)=>{
   req.session.destroy();
-  res.redirect("/home")
+  res.redirect("/")
 })
 
-// find one
+
+
 router.get("/:id", (req, res) => {
   User.findByPk(req.params.id,{})
     .then(dbUser => {
@@ -34,7 +34,8 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// create user
+
+
 router.post("/", (req, res) => {
   User.create(req.body)
     .then(newUser => {
@@ -49,7 +50,6 @@ router.post("/", (req, res) => {
       res.status(500).json({ msg: "an error occured", err });
     });
 });
-
 router.post("/login", (req, res) => {
   User.findOne({
     where:{
@@ -57,17 +57,16 @@ router.post("/login", (req, res) => {
   }
 }).then(foundUser=>{
     if(!foundUser){
-      return res.status(400).json({msg:"wrong login credentials"})
+      return res.status(400).json({msg:"wrong login information"})
     }
     if(bcrypt.compareSync(req.body.password,foundUser.password)){
       req.session.user = {
         id:foundUser.id,
         username:foundUser.username
       }
-      console.log(req.session.user, "********");
       return res.json(foundUser)
     } else {
-      return res.status(400).json({msg:"wrong login credentials"})
+      return res.status(400).json({msg:"wrong login information"})
     }
   }).catch(err => {
       console.log(err);
@@ -75,7 +74,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-// update user
+
 router.put("/:id", (req, res) => {
   User.update(req.body, {
     where: {
@@ -90,7 +89,9 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// delete a user
+
+
+
 router.delete("/:id", (req, res) => {
   User.destroy({
     where: {
@@ -104,8 +105,6 @@ router.delete("/:id", (req, res) => {
     res.status(500).json({ msg: "an error occured", err });
   });
 });
-
-
 
 
 module.exports = router;

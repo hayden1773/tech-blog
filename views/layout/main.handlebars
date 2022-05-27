@@ -2,16 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Blog</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 <body>
-    <header style="text-align:center ;"> Welcome to the page!</header>
+    <header>
+        {{#if loggedIn}}
 
-    <a href="/views/login.handlebars"><button><h3> LOG IN</h3></button></a>
-    
+
+            <a href="/dashboard">profile</a>
+            <a href="/api/users/logout">logout</a>
+
+
+        {{else}}
+
+
+        <a href="/login">login</a>
+
+
+        {{/if}}
+
+    </header>
+
+    <main>
 
     {{{body}}}
+
+    </main>
+
+    <footer>Thank you for visiting the site!</footer>
 </body>
 </html>

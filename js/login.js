@@ -3,7 +3,7 @@ document.querySelector("#loginbtn").addEventListener("click",e=>{
     const userObj = {
         username:document.querySelector("#loginUsername").value,
         password:document.querySelector("#loginPassword").value,
-        email:document.querySelector("#loginEmail").value,
+        
     }
     console.log(userObj)
     fetch("/api/users/login",{
@@ -28,7 +28,7 @@ document.querySelector("#signup").addEventListener("click",e=>{
     const userObj = {
         username:document.querySelector("#loginUsername").value,
         password:document.querySelector("#loginPassword").value,
-        email:document.querySelector("#loginEmail").value,
+        
     }
     console.log(userObj)
     fetch("/api/users/",{
@@ -39,7 +39,7 @@ document.querySelector("#signup").addEventListener("click",e=>{
         }
     }).then(res=>{
         if(res.ok){
-            console.log("logged in!")
+            location.href="/dashboard"
         } else {
             alert("trumpet sound")
         }
