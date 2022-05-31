@@ -34,7 +34,7 @@ Install with `npm init -y` followed by `express`, `express handlebars` and `sequ
 ## Usage
 Use by creating comments and diving into your words to lay out the issues or successing inside your blog
 
-![alt text]()
+![Snippit of home page for tech blog](./assets/snip%20of%20tech%20blog.jpg)
         
 ## Credits
 Hayden Kiltoff
