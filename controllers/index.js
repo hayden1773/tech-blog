@@ -4,17 +4,15 @@ const router = express.Router();
 const userRoutes = require("./userRoutes");
 router.use("/api/users",userRoutes)
 
-const commentRoutes = require("./commentRoutes");
-router.use("/api/comment",commentRoutes)
+const postRoutes = require("./postRoute");
+router.use("/api/Post",postRoutes)
 
-const frontEnd = require("./frontRoutes");
+const frontEnd = require("./frontEndRoutes");
 router.use("/",frontEnd)
 
 router.get("/showsessions",(req,res)=>{
     res.json(req.session)
 })
-
-
 
 
 module.exports = router;

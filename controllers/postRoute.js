@@ -1,24 +1,29 @@
 const express = require("express");
 const router = express.Router();
-const {User,comment} = require("../models");
+const {User,Post} = require("../models");
 
 
-
+//find all
 router.get("/", (req, res) => {
-  comment.findAll({})
-    .then(dbComment => {
-      res.json(dbComment);
+  Post.findAll({})
+    .then(dbPost => {
+      res.json(dbPost);
     })
+
+
     .catch(err => {
       console.log(err);
       res.status(500).json({ msg: "an error occured", err });
     });
+
 });
 
+
+//find one
 router.get("/:id", (req, res) => {
-  comment.findByPk(req.params.id,{})
-    .then(dbComment => {
-      res.json(dbComment);
+  Post.findByPk(req.params.id,{})
+    .then(dbPost => {
+      res.json(dbPost);
     })
     .catch(err => {
       console.log(err);
@@ -26,18 +31,18 @@ router.get("/:id", (req, res) => {
     });
 });
 
-
+//create Post
 router.post("/", (req, res) => {
   if(!req.session.user){
-    return res.status(401).json({msg:"ya gotta login to create a blog post!"})
+    return res.status(401).json({msg:"login to create a post!"})
 }
-  comment.create({
+Post.create({
     title:req.body.title,
     body:req.body.body,
     UserId:req.session.user.id
   })
-    .then(newComment => {
-      res.json(newComment);
+    .then(newPost => {
+      res.json(newPost);
     })
     .catch(err => {
       console.log(err);
@@ -45,14 +50,14 @@ router.post("/", (req, res) => {
     });
 });
 
-
+//update Post
 router.put("/:id", (req, res) => {
-  comment.update(req.body, {
+  Post.update(req.body, {
     where: {
       id: req.params.id
     }
-  }).then(updatedComment => {
-    res.json(updatedComment);
+  }).then(updatedPost => {
+    res.json(updatedPost);
   })
   .catch(err => {
     console.log(err);
@@ -60,14 +65,14 @@ router.put("/:id", (req, res) => {
   });
 });
 
-
+//delete a Post
 router.delete("/:id", (req, res) => {
-  comment.destroy({
+  Post.destroy({
     where: {
       id: req.params.id
     }
-  }).then(delComment => {
-    res.json(delComment);
+  }).then(delPost => {
+    res.json(delPost);
   })
   .catch(err => {
     console.log(err);

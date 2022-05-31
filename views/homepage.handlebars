@@ -1,6 +1,14 @@
-<h1>Home page</h1>
-{{#each comment}}
-    <h3>{{title}}</h3>
-    <p>{{body}}</p>
-    <hr>
+<h1 class="bigHeader">Main page</h1>
+
+{{#each Post}}
+<div>
+  
+  <div class="card-body">
+
+    <h3 class="card-title">{{title}}</h3>
+
+    <p class="card-text">{{body}}</p>
+    
+ </div>
+</div>
 {{/each}}

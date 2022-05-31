@@ -1,35 +1,30 @@
-<div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{name}}!</h2>
-  </div>
+<h1 class="welcome"> Welcome Back {{username}}</h1>
+<h2>All your Posts:</h2>
+<div class="card">
+<form action="" id="newPost">
+    <div class="card-body mb-3">
+  <label for="title" class="form-label">Your Post title</label>
+  <input type="text" class="form-control" id="title" placeholder="title">
 </div>
-
-<div class="row mt-4">
-  <div class="col-md-6">
-    <h3>Let's Create!:</h3>
-
-    <form class="form new-comment-form">
-      <div class="form-group">
-        <label for="comment-name">The name:</label>
-        <input class="form-input" type="text" id="comment-name" name="comment-name" />
-      </div>
-  
-      <div class="form-group">
-        <label for="comment-desc">description:</label>
-        <textarea class="form-input" id="comment-desc" name="comment-desc"></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div>
-
+<div class=" card-body mb-3">
+  <label for="body" class="form-label">Post Content</label>
+  <textarea class="form-control" id="body" cols="30" rows="3"></textarea>
+</div>
+<div class="card-body">
+<button class="btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
+{{#each Posts}}
+   <div class="card cardPost animate__animated animate__fadeInTopLeft">
+  <h5 class="card-header">{{time}}</h5>
+  <div class="card-body">
+    <h3 class="card-title">{{title}}</h3>
+    <p class="card-text">{{body}}</p>
+     <button class="btn del btn-danger" data-Post={{id}}>delete</button>
+ </div>
+</div>
  
-      
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-</div>
+{{/each}}
 
-<script src="./js/dashboard.js"></script>
+<script src="/js/profile.js"></script>

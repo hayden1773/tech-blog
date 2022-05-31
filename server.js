@@ -5,26 +5,33 @@ const session = require("express-session");
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+
+
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 
-const { User, comment } = require("./models");
+const { User, Post } = require("./models");
 
 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const application = {
+const sess = {
   secret: process.env.SESSION_SECRET,
-  
+  cookie: {
+    maxAge: 2 * 60 * 60 * 1000
+  },
+  resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize
   })
 };
-app.use(session(application));
+app.use(session(sess));
+
 
 
 app.use(express.static('public'));

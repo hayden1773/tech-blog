@@ -13,6 +13,8 @@ User.init({
          allowNull:false,
          unique:true
     },
+
+
     password:{
         type:DataTypes.STRING,
         allowNull:false,
@@ -21,9 +23,15 @@ User.init({
         }
     }
 },
-    
-    
+
+{
+    hooks:{
+        beforeCreate:async userdata=>{
+            userdata.password = await bcrypt.hash(userdata.password,5)
+            return userdata
+        }
+    },
     sequelize,
-);
+});
 
 module.exports=User

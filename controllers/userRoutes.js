@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const {User,comment} = require("../models/");
+const {User,Post} = require("../models/");
 const bcrypt  = require("bcrypt");
 
-
+//find all
 router.get("/", (req, res) => {
   User.findAll({
-    include:[comment]
+    include:[Post]
   })
     .then(dbUsers => {
       res.json(dbUsers);
@@ -20,9 +20,7 @@ router.get("/logout",(req,res)=>{
   req.session.destroy();
   res.redirect("/")
 })
-
-
-
+//find one
 router.get("/:id", (req, res) => {
   User.findByPk(req.params.id,{})
     .then(dbUser => {
@@ -34,8 +32,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-
-
+//create user
 router.post("/", (req, res) => {
   User.create(req.body)
     .then(newUser => {
@@ -57,7 +54,7 @@ router.post("/login", (req, res) => {
   }
 }).then(foundUser=>{
     if(!foundUser){
-      return res.status(400).json({msg:"wrong login information"})
+      return res.status(400).json({msg:"wrong login credentials"})
     }
     if(bcrypt.compareSync(req.body.password,foundUser.password)){
       req.session.user = {
@@ -66,7 +63,7 @@ router.post("/login", (req, res) => {
       }
       return res.json(foundUser)
     } else {
-      return res.status(400).json({msg:"wrong login information"})
+      return res.status(400).json({msg:"wrong login credentials"})
     }
   }).catch(err => {
       console.log(err);
@@ -74,7 +71,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-
+//update user
 router.put("/:id", (req, res) => {
   User.update(req.body, {
     where: {
@@ -89,9 +86,7 @@ router.put("/:id", (req, res) => {
   });
 });
 
-
-
-
+//delete a user
 router.delete("/:id", (req, res) => {
   User.destroy({
     where: {
